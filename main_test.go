@@ -6,14 +6,14 @@ import (
 
 type TestAlwaysWinsGamer struct{}
 
-func (t TestAlwaysWinsGamer) PlayGame() bool {
+func (t TestAlwaysWinsGamer) playGame() bool {
 	return true
 }
 
 func TestIncrementWin(t *testing.T) {
 	game := NewGame(3)
 	for i := 0; i < game.gameCount; i++ {
-		game.AddWin()
+		game.addWin()
 	}
 
 	assertWinCount(t, game)
@@ -25,19 +25,19 @@ func TestPlayGame(t *testing.T) {
 	gameCount := 3
 
 	for i := 0; i < gameCount; i++ {
-		didWin := game.DetermineWin(gamer)
+		didWin := game.determineWin(gamer)
 		if didWin {
-			game.AddWin()
+			game.addWin()
 		}
 	}
 
 	assertWinCount(t, game)
 }
 
-func assertWinCount(t testing.TB, game Game) {
+func assertWinCount(t testing.TB, game game) {
 	t.Helper()
 
-	if game.Wins() != game.gameCount {
-		t.Errorf("Expected %d wins, but got %d", game.gameCount, game.Wins())
+	if game.getWins() != game.gameCount {
+		t.Errorf("Expected %d wins, but got %d", game.gameCount, game.getWins())
 	}
 }
