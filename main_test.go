@@ -45,6 +45,27 @@ func TestPlayGame(t *testing.T) {
 	})
 }
 
+func TestPrizeBoxes(t *testing.T) {
+	t.Run("Test single prize set", func(t *testing.T) {
+		game := NewGame(1)
+		prizeSet := game.createPrizeSet()
+		var xCount, oCount int
+
+		for _, prize := range prizeSet {
+			if prize == "X" {
+				xCount++
+			} else if prize == "O" {
+				oCount++
+			}
+		}
+
+		if xCount != 1 && oCount != 2 {
+			t.Errorf("There should always be one prize (X) but got %d and two goats (O) but got %d", xCount, oCount)
+		}
+	})
+
+}
+
 func assertWinCount(t *testing.T, winCount, expectedWinCount int) {
 	t.Helper()
 

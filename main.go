@@ -1,12 +1,17 @@
 package main
 
+import (
+	"math/rand"
+)
+
 type GameLogic interface {
 	playGame() bool
 }
 
 type game struct {
-	wins      int
-	gameCount int
+	wins       int
+	gameCount  int
+	prizeGroup [][]string
 }
 
 func (g *game) addWin() {
@@ -26,6 +31,15 @@ func (g *game) RunGame(gameLogic GameLogic) int {
 	}
 
 	return g.wins
+}
+
+func (g *game) createPrizeSet() []string {
+	prizeSet := []string{"O", "O", "O"}
+	prizeNumber := rand.Intn(3)
+
+	prizeSet[prizeNumber] = "X"
+
+	return prizeSet
 }
 
 func NewGame(gameCount int) game {
