@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"math/rand"
 )
 
@@ -57,4 +58,34 @@ func createPrizeSet() []string {
 	prizeSet[prizeNumber] = "X"
 
 	return prizeSet
+}
+
+func selectPrizeToShow(prizeSet []string, userChosenPrize int) (prizeToShow int, err error) {
+	if prizeSet[userChosenPrize] != "X" {
+		for index := range prizeSet {
+			if index != userChosenPrize && prizeSet[index] != "X" {
+				return index, nil
+			}
+		}
+	}
+
+	goatToShow := rand.Intn(2)
+	goatCount := -1
+
+	for index, prize := range prizeSet {
+		if index == userChosenPrize {
+			continue
+		} else if prize == "X" {
+			continue
+		} else if prize == "O" {
+			goatCount++
+		}
+
+		if goatCount == goatToShow {
+			return index, nil
+		}
+	}
+
+	return 0, errors.New("was unable to find goat to show")
+
 }

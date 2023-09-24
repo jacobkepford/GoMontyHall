@@ -1,6 +1,7 @@
 package main
 
 import (
+	"math/rand"
 	"testing"
 )
 
@@ -69,6 +70,25 @@ func TestPrizeBoxes(t *testing.T) {
 			t.Errorf("Expected %d game sets, but got %d", game.gameCount, len(game.prizeSets))
 		}
 	})
+}
+
+func TestShowCorrectGoat(t *testing.T) {
+	for i := 0; i < 100; i++ {
+		prizeSet := createPrizeSet()
+		userChosenPrize := rand.Intn(3)
+
+		prizeToShow, err := selectPrizeToShow(prizeSet, userChosenPrize)
+
+		if err != nil {
+			t.Fatalf("Error: %s", err)
+		}
+
+		if prizeSet[prizeToShow] == "X" {
+			t.Error("Prize shown was the actual prize")
+		} else if userChosenPrize == prizeToShow {
+			t.Error("Prize shown was the users selected prize")
+		}
+	}
 }
 
 func assertWinCount(t *testing.T, winCount, expectedWinCount int) {
