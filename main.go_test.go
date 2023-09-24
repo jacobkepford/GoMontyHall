@@ -18,7 +18,7 @@ func (t TestRandomGamer) PlayGame() bool {
 }
 
 func TestIncrementWin(t *testing.T) {
-	game := NewGame()
+	game := Game{}
 	gameCount := 3
 
 	for i := 0; i < gameCount; i++ {
@@ -32,7 +32,7 @@ func TestIncrementWin(t *testing.T) {
 
 func TestDetermineWin(t *testing.T) {
 	t.Run("Test Synchronous Dynamic Win", func(t *testing.T) {
-		game := NewGame()
+		game := Game{}
 		gamer := TestAlwaysWinsGamer{}
 		gameCount := 3
 
@@ -111,7 +111,7 @@ func TestDetermineWin(t *testing.T) {
 // 	})
 // }
 
-func assertWinCount(t testing.TB, game *Game, wantedWinCount int) {
+func assertWinCount(t testing.TB, game Game, wantedWinCount int) {
 	t.Helper()
 
 	if game.Wins() != wantedWinCount {

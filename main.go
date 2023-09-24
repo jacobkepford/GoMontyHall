@@ -12,14 +12,10 @@ func (g *Game) AddWin() {
 	g.wins++
 }
 
-func (g *Game) Wins() int {
+func (g Game) Wins() int {
 	return g.wins
 }
 
-func (g *Game) DetermineWin(gamer Gamer) bool {
+func (g Game) DetermineWin(gamer Gamer) bool {
 	return gamer.PlayGame()
-}
-
-func NewGame() *Game {
-	return &Game{}
 }
