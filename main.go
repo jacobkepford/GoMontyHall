@@ -34,7 +34,20 @@ func (g *game) RunGame(gameLogic GameLogic) int {
 }
 
 func NewGame(gameCount int) game {
-	return game{wins: 0, gameCount: gameCount}
+	if gameCount < 0 {
+		gameCount = 0
+	}
+	return game{wins: 0, gameCount: gameCount, prizeGroup: createAllPrizeSets(gameCount)}
+}
+
+func createAllPrizeSets(gameCount int) [][]string {
+	prizeSets := make([][]string, gameCount)
+
+	for i := 0; i < gameCount; i++ {
+		prizeSets[i] = createPrizeSet()
+	}
+
+	return prizeSets
 }
 
 func createPrizeSet() []string {

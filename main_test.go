@@ -63,6 +63,13 @@ func TestPrizeBoxes(t *testing.T) {
 		}
 	})
 
+	t.Run("Test game set creation", func(t *testing.T) {
+		game := NewGame(5)
+		if len(game.prizeGroup) != game.gameCount {
+			t.Errorf("Expected %d game sets, but got %d", game.gameCount, len(game.prizeGroup))
+		}
+	})
+
 }
 
 func assertWinCount(t *testing.T, winCount, expectedWinCount int) {
