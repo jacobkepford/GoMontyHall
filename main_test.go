@@ -1,7 +1,6 @@
 package main
 
 import (
-	"math/rand"
 	"testing"
 )
 
@@ -75,7 +74,7 @@ func TestPrizeBoxes(t *testing.T) {
 func TestShowCorrectGoat(t *testing.T) {
 	for i := 0; i < 100; i++ {
 		prizeSet := createPrizeSet()
-		userChosenPrize := rand.Intn(3)
+		userChosenPrize := chooseRandomPrize()
 
 		prizeToShow, err := selectPrizeToShow(prizeSet, userChosenPrize)
 
@@ -89,6 +88,18 @@ func TestShowCorrectGoat(t *testing.T) {
 			t.Error("Prize shown was the users selected prize")
 		}
 	}
+}
+
+func TestChooseRandomPrize(t *testing.T) {
+
+	for i := 0; i < 100; i++ {
+		userSelectedPrize := chooseRandomPrize()
+
+		if userSelectedPrize < 0 || userSelectedPrize > prizeAmount {
+			t.Errorf("Randomly selected user prize is %d but should be in range of 0 and %d", userSelectedPrize, prizeAmount)
+		}
+	}
+
 }
 
 func assertWinCount(t *testing.T, winCount, expectedWinCount int) {

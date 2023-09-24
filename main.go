@@ -5,9 +5,23 @@ import (
 	"math/rand"
 )
 
+const prizeAmount int = 3
+
 type GameLogic interface {
 	playGame() bool
 }
+
+// type montyHallLogic struct{}
+
+// func (m montyHallLogic) playGame(prizeSet []string) bool {
+// 	userChoice := rand.Intn(3)
+// 	prizeToShow, err := selectPrizeToShow(prizeSet, userChoice)
+
+// 	if err != nil {
+// 		return false
+// 	}
+
+// }
 
 type game struct {
 	wins      int
@@ -53,7 +67,7 @@ func createAllPrizeSets(gameCount int) [][]string {
 
 func createPrizeSet() []string {
 	prizeSet := []string{"O", "O", "O"}
-	prizeNumber := rand.Intn(3)
+	prizeNumber := chooseRandomPrize()
 
 	prizeSet[prizeNumber] = "X"
 
@@ -88,4 +102,8 @@ func selectPrizeToShow(prizeSet []string, userChosenPrize int) (prizeToShow int,
 
 	return 0, errors.New("was unable to find goat to show")
 
+}
+
+func chooseRandomPrize() int {
+	return rand.Intn(prizeAmount)
 }
