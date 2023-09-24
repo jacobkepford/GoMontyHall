@@ -51,5 +51,4 @@ func assertWinCount(t *testing.T, winCount, expectedWinCount int) {
 	if winCount != expectedWinCount {
 		t.Errorf("Expected %d wins, but got %d", expectedWinCount, winCount)
 	}
-
 }
