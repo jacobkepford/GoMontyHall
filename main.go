@@ -9,9 +9,9 @@ type GameLogic interface {
 }
 
 type game struct {
-	wins       int
-	gameCount  int
-	prizeGroup [][]string
+	wins      int
+	gameCount int
+	prizeSets [][]string
 }
 
 func (g *game) addWin() {
@@ -37,7 +37,7 @@ func NewGame(gameCount int) game {
 	if gameCount < 0 {
 		gameCount = 0
 	}
-	return game{wins: 0, gameCount: gameCount, prizeGroup: createAllPrizeSets(gameCount)}
+	return game{wins: 0, gameCount: gameCount, prizeSets: createAllPrizeSets(gameCount)}
 }
 
 func createAllPrizeSets(gameCount int) [][]string {
