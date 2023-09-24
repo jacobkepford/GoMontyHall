@@ -69,7 +69,6 @@ func TestPrizeBoxes(t *testing.T) {
 			t.Errorf("Expected %d game sets, but got %d", game.gameCount, len(game.prizeSets))
 		}
 	})
-
 }
 
 func assertWinCount(t *testing.T, winCount, expectedWinCount int) {
