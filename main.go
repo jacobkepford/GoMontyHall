@@ -33,15 +33,15 @@ func (g *game) RunGame(gameLogic GameLogic) int {
 	return g.wins
 }
 
-func (g game) createPrizeSet() []string {
+func NewGame(gameCount int) game {
+	return game{wins: 0, gameCount: gameCount}
+}
+
+func createPrizeSet() []string {
 	prizeSet := []string{"O", "O", "O"}
 	prizeNumber := rand.Intn(3)
 
 	prizeSet[prizeNumber] = "X"
 
 	return prizeSet
-}
-
-func NewGame(gameCount int) game {
-	return game{wins: 0, gameCount: gameCount}
 }

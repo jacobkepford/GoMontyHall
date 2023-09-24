@@ -47,8 +47,7 @@ func TestPlayGame(t *testing.T) {
 
 func TestPrizeBoxes(t *testing.T) {
 	t.Run("Test single prize set", func(t *testing.T) {
-		game := NewGame(1)
-		prizeSet := game.createPrizeSet()
+		prizeSet := createPrizeSet()
 		var xCount, oCount int
 
 		for _, prize := range prizeSet {
