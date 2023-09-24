@@ -6,7 +6,7 @@ import (
 
 type TestAlwaysWinsGamer struct{}
 
-func (t TestAlwaysWinsGamer) playGame() bool {
+func (t TestAlwaysWinsGamer) playGame(emptyPrizeSet []string) bool {
 	return true
 }
 
@@ -23,7 +23,7 @@ func TestPlayGame(t *testing.T) {
 	t.Run("Test Positive Number Of Games", func(t *testing.T) {
 		game := NewGame(3)
 		gameLogic := TestAlwaysWinsGamer{}
-		winCount := game.RunGame(gameLogic)
+		winCount := game.configurableRunGame(gameLogic)
 
 		assertWinCount(t, winCount, game.gameCount)
 	})
@@ -31,7 +31,7 @@ func TestPlayGame(t *testing.T) {
 	t.Run("Test 0 Number Of Games", func(t *testing.T) {
 		game := NewGame(0)
 		gameLogic := TestAlwaysWinsGamer{}
-		winCount := game.RunGame(gameLogic)
+		winCount := game.configurableRunGame(gameLogic)
 
 		assertWinCount(t, winCount, 0)
 	})
@@ -39,7 +39,7 @@ func TestPlayGame(t *testing.T) {
 	t.Run("Test Negative Number Of Games", func(t *testing.T) {
 		game := NewGame(-3)
 		gameLogic := TestAlwaysWinsGamer{}
-		winCount := game.RunGame(gameLogic)
+		winCount := game.configurableRunGame(gameLogic)
 
 		assertWinCount(t, winCount, 0)
 	})

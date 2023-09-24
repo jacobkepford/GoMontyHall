@@ -2,26 +2,30 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"math/rand"
 )
 
 const prizeAmount int = 3
 
 type GameLogic interface {
-	playGame() bool
+	playGame([]string) bool
 }
 
-// type montyHallLogic struct{}
+type montyHallLogic struct{}
 
-// func (m montyHallLogic) playGame(prizeSet []string) bool {
-// 	userChoice := chooseRandomPrize()
-// 	prizeToShow, err := selectPrizeToShow(prizeSet, userChoice)
+func (m montyHallLogic) playGame(prizeSet []string) bool {
+	userChoice := chooseRandomPrize()
+	prizeToShow, err := selectPrizeToShow(prizeSet, userChoice)
 
-// 	if err != nil {
-// 		return false
-// 	}
+	if err != nil {
+		return false
+	}
 
-// }
+	finalPrize := selectSwitchPrize(userChoice, prizeToShow)
+
+	return prizeSet[finalPrize] == "X"
+}
 
 type game struct {
 	wins      int
@@ -33,19 +37,24 @@ func (g *game) addWin() {
 	g.wins++
 }
 
-func (g game) determineWin(gameLogic GameLogic) bool {
-	return gameLogic.playGame()
+func (g *game) determineWin(gameLogic GameLogic, prizeSet []string) bool {
+	return gameLogic.playGame(prizeSet)
 }
 
-func (g *game) RunGame(gameLogic GameLogic) int {
-	for i := 0; i < g.gameCount; i++ {
-		didWin := g.determineWin(gameLogic)
+func (g *game) configurableRunGame(gameLogic GameLogic) int {
+	for _, prizeSet := range g.prizeSets {
+		didWin := g.determineWin(gameLogic, prizeSet)
 		if didWin {
 			g.addWin()
 		}
 	}
 
 	return g.wins
+}
+
+func (g *game) RunGame() int {
+	gameLogic := montyHallLogic{}
+	return g.configurableRunGame(gameLogic)
 }
 
 func NewGame(gameCount int) game {
@@ -118,4 +127,14 @@ func selectSwitchPrize(userSelectedPrize, prizeToShow int) int {
 	}
 
 	return switchPrize
+}
+
+func main() {
+	gameAmount := 10000
+	game := NewGame(gameAmount)
+	wins := game.RunGame()
+
+	winPercent := float64(wins) / float64(gameAmount) * 100
+
+	fmt.Printf("Monty Hall strategy resulted in a %.2f win rate \n", winPercent)
 }
