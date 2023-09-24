@@ -1,6 +1,6 @@
 package main
 
-type Gamer interface {
+type GameLogic interface {
 	playGame() bool
 }
 
@@ -17,8 +17,19 @@ func (g game) getWins() int {
 	return g.wins
 }
 
-func (g game) determineWin(gamer Gamer) bool {
-	return gamer.playGame()
+func (g game) determineWin(gameLogic GameLogic) bool {
+	return gameLogic.playGame()
+}
+
+func (g *game) RunGame(gameLogic GameLogic) int {
+	for i := 0; i < g.gameCount; i++ {
+		didWin := g.determineWin(gameLogic)
+		if didWin {
+			g.addWin()
+		}
+	}
+
+	return g.getWins()
 }
 
 func NewGame(gameCount int) game {
