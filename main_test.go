@@ -22,9 +22,8 @@ func TestIncrementWin(t *testing.T) {
 func TestPlayGame(t *testing.T) {
 	game := NewGame(3)
 	gamer := TestAlwaysWinsGamer{}
-	gameCount := 3
 
-	for i := 0; i < gameCount; i++ {
+	for i := 0; i < game.gameCount; i++ {
 		didWin := game.determineWin(gamer)
 		if didWin {
 			game.addWin()
