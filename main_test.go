@@ -102,6 +102,26 @@ func TestChooseRandomPrize(t *testing.T) {
 
 }
 
+func TestSwitchPrize(t *testing.T) {
+	userSelectedPrize := chooseRandomPrize()
+	prizeSet := createPrizeSet()
+	prizeToShow, err := selectPrizeToShow(prizeSet, userSelectedPrize)
+
+	if err != nil {
+		t.Fatal("Error: ", err)
+	}
+
+	finalPrize := selectSwitchPrize(userSelectedPrize, prizeToShow)
+
+	if finalPrize == userSelectedPrize {
+		t.Errorf("Prize to switch to should not be the originally chosen prize")
+	}
+
+	if finalPrize == prizeToShow {
+		t.Errorf("Prize to switch to should not be the goat shown")
+	}
+}
+
 func assertWinCount(t *testing.T, winCount, expectedWinCount int) {
 	t.Helper()
 

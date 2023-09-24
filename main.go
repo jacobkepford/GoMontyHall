@@ -14,7 +14,7 @@ type GameLogic interface {
 // type montyHallLogic struct{}
 
 // func (m montyHallLogic) playGame(prizeSet []string) bool {
-// 	userChoice := rand.Intn(3)
+// 	userChoice := chooseRandomPrize()
 // 	prizeToShow, err := selectPrizeToShow(prizeSet, userChoice)
 
 // 	if err != nil {
@@ -106,4 +106,16 @@ func selectPrizeToShow(prizeSet []string, userChosenPrize int) (prizeToShow int,
 
 func chooseRandomPrize() int {
 	return rand.Intn(prizeAmount)
+}
+
+func selectSwitchPrize(userSelectedPrize, prizeToShow int) int {
+	var switchPrize int
+
+	for i := 0; i < prizeAmount; i++ {
+		if i != userSelectedPrize && i != prizeToShow {
+			switchPrize = i
+		}
+	}
+
+	return switchPrize
 }
