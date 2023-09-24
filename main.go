@@ -13,10 +13,6 @@ func (g *game) addWin() {
 	g.wins++
 }
 
-func (g game) getWins() int {
-	return g.wins
-}
-
 func (g game) determineWin(gameLogic GameLogic) bool {
 	return gameLogic.playGame()
 }
@@ -29,7 +25,7 @@ func (g *game) RunGame(gameLogic GameLogic) int {
 		}
 	}
 
-	return g.getWins()
+	return g.wins
 }
 
 func NewGame(gameCount int) game {

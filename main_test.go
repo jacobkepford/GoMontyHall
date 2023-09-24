@@ -16,17 +16,40 @@ func TestIncrementWin(t *testing.T) {
 		game.addWin()
 	}
 
-	if game.getWins() != game.gameCount {
-		t.Errorf("Expected %d wins, but got %d", game.gameCount, game.getWins())
-	}
+	assertWinCount(t, game.wins, game.gameCount)
 }
 
 func TestPlayGame(t *testing.T) {
-	game := NewGame(3)
-	gameLogic := TestAlwaysWinsGamer{}
-	winCount := game.RunGame(gameLogic)
+	t.Run("Test Positive Number Of Games", func(t *testing.T) {
+		game := NewGame(3)
+		gameLogic := TestAlwaysWinsGamer{}
+		winCount := game.RunGame(gameLogic)
 
-	if winCount != game.gameCount {
-		t.Errorf("Expected %d wins, but got %d", game.gameCount, winCount)
+		assertWinCount(t, winCount, game.gameCount)
+	})
+
+	t.Run("Test 0 Number Of Games", func(t *testing.T) {
+		game := NewGame(0)
+		gameLogic := TestAlwaysWinsGamer{}
+		winCount := game.RunGame(gameLogic)
+
+		assertWinCount(t, winCount, 0)
+	})
+
+	t.Run("Test Negative Number Of Games", func(t *testing.T) {
+		game := NewGame(-3)
+		gameLogic := TestAlwaysWinsGamer{}
+		winCount := game.RunGame(gameLogic)
+
+		assertWinCount(t, winCount, 0)
+	})
+}
+
+func assertWinCount(t *testing.T, winCount, expectedWinCount int) {
+	t.Helper()
+
+	if winCount != expectedWinCount {
+		t.Errorf("Expected %d wins, but got %d", expectedWinCount, winCount)
 	}
+
 }
