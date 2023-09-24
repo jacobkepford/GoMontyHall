@@ -33,7 +33,7 @@ func (g *game) RunGame(gameLogic GameLogic) int {
 	return g.wins
 }
 
-func (g *game) createPrizeSet() []string {
+func (g game) createPrizeSet() []string {
 	prizeSet := []string{"O", "O", "O"}
 	prizeNumber := rand.Intn(3)
 
