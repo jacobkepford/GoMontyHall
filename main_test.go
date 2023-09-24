@@ -11,40 +11,33 @@ func (t TestAlwaysWinsGamer) PlayGame() bool {
 }
 
 func TestIncrementWin(t *testing.T) {
-	game := Game{}
-	gameCount := 3
-
-	for i := 0; i < gameCount; i++ {
+	game := NewGame(3)
+	for i := 0; i < game.gameCount; i++ {
 		game.AddWin()
 	}
 
-	wantedWinCount := gameCount
-
-	assertWinCount(t, game, wantedWinCount)
+	assertWinCount(t, game)
 }
 
-func TestDetermineWin(t *testing.T) {
-	t.Run("Test Synchronous Dynamic Win", func(t *testing.T) {
-		game := Game{}
-		gamer := TestAlwaysWinsGamer{}
-		gameCount := 3
+func TestPlayGame(t *testing.T) {
+	game := NewGame(3)
+	gamer := TestAlwaysWinsGamer{}
+	gameCount := 3
 
-		for i := 0; i < gameCount; i++ {
-			didWin := game.DetermineWin(gamer)
-			if didWin {
-				game.AddWin()
-			}
+	for i := 0; i < gameCount; i++ {
+		didWin := game.DetermineWin(gamer)
+		if didWin {
+			game.AddWin()
 		}
+	}
 
-		assertWinCount(t, game, gameCount)
-	})
-
+	assertWinCount(t, game)
 }
 
-func assertWinCount(t testing.TB, game Game, wantedWinCount int) {
+func assertWinCount(t testing.TB, game Game) {
 	t.Helper()
 
-	if game.Wins() != wantedWinCount {
-		t.Errorf("Expected %d wins, but got %d", wantedWinCount, game.Wins())
+	if game.Wins() != game.gameCount {
+		t.Errorf("Expected %d wins, but got %d", game.gameCount, game.Wins())
 	}
 }

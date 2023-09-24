@@ -5,7 +5,8 @@ type Gamer interface {
 }
 
 type Game struct {
-	wins int
+	wins      int
+	gameCount int
 }
 
 func (g *Game) AddWin() {
@@ -18,4 +19,8 @@ func (g Game) Wins() int {
 
 func (g Game) DetermineWin(gamer Gamer) bool {
 	return gamer.PlayGame()
+}
+
+func NewGame(gameCount int) Game {
+	return Game{wins: 0, gameCount: gameCount}
 }
