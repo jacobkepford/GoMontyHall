@@ -16,7 +16,6 @@ type montyHallLogic struct{}
 func (m montyHallLogic) playGame(prizeSet []string) bool {
 	userChoice := chooseRandomPrize()
 	prizeToShow := selectPrizeToShow(prizeSet, userChoice)
-
 	finalPrize := selectSwitchPrize(userChoice, prizeToShow)
 
 	return prizeSet[finalPrize] == "X"
@@ -105,7 +104,6 @@ func selectPrizeToShow(prizeSet []string, userChosenPrize int) (prizeToShow int)
 	}
 
 	return 0
-
 }
 
 func chooseRandomPrize() int {
