@@ -1,7 +1,6 @@
 package montyHall
 
 import (
-	"errors"
 	"fmt"
 	"math/rand"
 )
@@ -16,11 +15,7 @@ type montyHallLogic struct{}
 
 func (m montyHallLogic) playGame(prizeSet []string) bool {
 	userChoice := chooseRandomPrize()
-	prizeToShow, err := selectPrizeToShow(prizeSet, userChoice)
-
-	if err != nil {
-		return false
-	}
+	prizeToShow := selectPrizeToShow(prizeSet, userChoice)
 
 	finalPrize := selectSwitchPrize(userChoice, prizeToShow)
 
@@ -83,11 +78,11 @@ func createPrizeSet() []string {
 	return prizeSet
 }
 
-func selectPrizeToShow(prizeSet []string, userChosenPrize int) (prizeToShow int, err error) {
+func selectPrizeToShow(prizeSet []string, userChosenPrize int) (prizeToShow int) {
 	if prizeSet[userChosenPrize] != "X" {
 		for index := range prizeSet {
 			if index != userChosenPrize && prizeSet[index] != "X" {
-				return index, nil
+				return index
 			}
 		}
 	}
@@ -105,11 +100,11 @@ func selectPrizeToShow(prizeSet []string, userChosenPrize int) (prizeToShow int,
 		}
 
 		if goatCount == goatToShow {
-			return index, nil
+			return index
 		}
 	}
 
-	return 0, errors.New("was unable to find goat to show")
+	return 0
 
 }
 

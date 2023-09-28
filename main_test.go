@@ -76,11 +76,7 @@ func TestShowCorrectGoat(t *testing.T) {
 		prizeSet := createPrizeSet()
 		userChosenPrize := chooseRandomPrize()
 
-		prizeToShow, err := selectPrizeToShow(prizeSet, userChosenPrize)
-
-		if err != nil {
-			t.Fatalf("Error: %s", err)
-		}
+		prizeToShow := selectPrizeToShow(prizeSet, userChosenPrize)
 
 		if prizeSet[prizeToShow] == "X" {
 			t.Error("Prize shown was the actual prize")
@@ -105,11 +101,7 @@ func TestChooseRandomPrize(t *testing.T) {
 func TestSwitchPrize(t *testing.T) {
 	userSelectedPrize := chooseRandomPrize()
 	prizeSet := createPrizeSet()
-	prizeToShow, err := selectPrizeToShow(prizeSet, userSelectedPrize)
-
-	if err != nil {
-		t.Fatal("Error: ", err)
-	}
+	prizeToShow := selectPrizeToShow(prizeSet, userSelectedPrize)
 
 	finalPrize := selectSwitchPrize(userSelectedPrize, prizeToShow)
 
