@@ -1,4 +1,4 @@
-package main
+package montyHall
 
 import (
 	"errors"
@@ -8,7 +8,7 @@ import (
 
 const prizeAmount int = 3
 
-type GameLogic interface {
+type gameLogic interface {
 	playGame([]string) bool
 }
 
@@ -37,11 +37,11 @@ func (g *game) addWin() {
 	g.wins++
 }
 
-func (g *game) determineWin(gameLogic GameLogic, prizeSet []string) bool {
+func (g *game) determineWin(gameLogic gameLogic, prizeSet []string) bool {
 	return gameLogic.playGame(prizeSet)
 }
 
-func (g *game) configurableRunGame(gameLogic GameLogic) int {
+func (g *game) configurableRunGame(gameLogic gameLogic) int {
 	for _, prizeSet := range g.prizeSets {
 		didWin := g.determineWin(gameLogic, prizeSet)
 		if didWin {
@@ -129,7 +129,7 @@ func selectSwitchPrize(userSelectedPrize, prizeToShow int) int {
 	return switchPrize
 }
 
-func main() {
+func sample() {
 	gameAmount := 10000
 	game := NewGame(gameAmount)
 	wins := game.RunGame()
