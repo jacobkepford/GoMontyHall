@@ -134,7 +134,7 @@ func sample() {
 	game := NewGame(gameAmount)
 	wins := game.RunGame()
 
-	winPercent := float64(wins) / float64(gameAmount) * 100
+	winPercent := int(float64(wins) / float64(gameAmount) * 100)
 
-	fmt.Printf("Monty Hall strategy resulted in a %.2f win rate \n", winPercent)
+	fmt.Printf("Monty Hall strategy resulted in a %d win rate \n", winPercent)
 }
